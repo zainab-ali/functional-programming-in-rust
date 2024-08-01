@@ -1,7 +1,7 @@
 
 class: center, middle
 
-# Functional Programming in Rust
+# An Introduction to Functional Programming
 ## Zainab Ali
 ### https://zainab-ali.github.io/functional-programming-in-rust
 
