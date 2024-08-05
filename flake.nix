@@ -10,13 +10,17 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
       in
-      {
-        devShell = pkgs.mkShell {
-          name = "fprust";
-          buildInputs = with pkgs; [
-            althttpd
-          ];
-        };
-      }
+        {
+          devShell = pkgs.mkShell {
+            name = "fprust";
+            buildInputs = with pkgs; [
+              althttpd
+              libiconv
+              cargo
+              rustfmt
+              rust-analyzer
+            ] ++ (with rust.packages.stable.rustPlatform; [ rustc rustcSrc ]);
+          };
+        }
     );
 }
