@@ -1,0 +1,21 @@
+[package]
+name = "fprust"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+chrono = "0.4"
+
+[[bin]]
+name = "birthday1"
+
+[[bin]]
+name = "birthday2"
+
+[[bin]]
+name = "birthday3"
+
+[[bin]]
+name = "birthday4"

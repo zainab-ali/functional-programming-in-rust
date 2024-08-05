@@ -119,8 +119,8 @@ fn today() -> NaiveDate {
 ```
 
 ```rust
-fn birthday(today: NaiveDate) -> NaiveDate {
-    date_of_birth().with_year(today.year()).unwrap()
+fn birthday() -> NaiveDate {
+    date_of_birth().with_year(today().year()).unwrap()
 }
 ```
 
@@ -456,3 +456,4 @@ class: center, middle
 # Thank you!
 ## Questions?
 ### https://zainab-ali.github.io/introduction-to-functional-programming-in-rust
+### https://github.com/zainab-ali/introduction-to-functional-programming-in-rust
