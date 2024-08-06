@@ -189,9 +189,9 @@ class: middle
 fn main() -> () {
     // Side effects
     let today = get_today();
-    let dob_string = get_arg();
+    let input = get_arg();
 	// Pure code
-    let dob = calc_dob(dob_string);
+    let dob = calc_dob(input);
     let birthday = calc_birthday(today, dob);
 	// Printing
     if birthday == today {
@@ -268,7 +268,7 @@ enum Message {
 
 ```rust
 // Pure
-fn calc_message(dob_string: Option<String>, today: NaiveDate) -> Message
+fn calc_message(input: Option<String>, today: NaiveDate) -> Message
 ```
 ```rust
 // Side effects
@@ -278,8 +278,8 @@ fn print_message(message: Message) -> ()
 ---
 class: middle
 ```rust
-fn calc_message(dob_string: Option<String>, today: NaiveDate) -> Message {
-    let dob = calc_dob(dob_string);
+fn calc_message(input: Option<String>, today: NaiveDate) -> Message {
+    let dob = calc_dob(input);
     let birthday = calc_birthday(today, dob);
     if birthday == today {
         Message::HappyBirthday {
@@ -317,9 +317,9 @@ class: middle
 fn main() -> () {
     // Side effects
     let today = get_today();
-    let dob_string = get_arg();
+    let input = get_arg();
     // Pure
-    let message = calc_message(dob_string, today);
+    let message = calc_message(input, today);
     // Side effects
     print_message(message);
 }
@@ -379,13 +379,13 @@ enum Error {
 ```
 
 ```rust
-fn calc_message(dob_string: Option<String>, 
+fn calc_message(input: Option<String>, 
                 today: NaiveDate) -> Result<Message, Error>
 				
 ```
 
 ```rust
-fn calc_dob(dob_string: Option<String>, 
+fn calc_dob(input: Option<String>, 
             today: NaiveDate) -> Result<NaiveDate, Error>
 ```
 
@@ -393,9 +393,9 @@ fn calc_dob(dob_string: Option<String>,
 class: middle
 
 ```rust
-fn calc_message(dob_string: Option<String>, 
+fn calc_message(input: Option<String>, 
                 today: NaiveDate) -> Result<Message, Error> {
-    let dob = calc_dob(dob_string, today)?;
+    let dob = calc_dob(input, today)?;
     let birthday = calc_birthday(today, dob);
     let message = ...
 	Ok(message)
