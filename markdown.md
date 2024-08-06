@@ -24,17 +24,17 @@ class: middle
 
 ## Today is 6th August 2024.
 
-```
+```bash
 ./birthday 2000-08-06   # My birthday is today
 Happy birthday! Congratulations on becoming 24!
 ```
 
-```
+```bash
 ./birthday 2000-08-08   # My birthday is soon
 It's not your birthday yet. Wait for 2 more days.
 ```
 
-```
+```bash
 ./birthday 2000-08-05   # My birthday was yesterday
 You've already had your birthday. I hope you had fun!
 ```
@@ -52,7 +52,7 @@ class: middle
 # 🐛 The bug
 
 ## It's close to midnight on the 5th August.
-```
+```bash
 ./birthday 2000-08-06
 It's not your birthday yet. Wait for 0 more days.
 ```
@@ -308,17 +308,17 @@ class: middle
 class: middle
 # 🐛 More problems
 
-```
+```bash
 ./birthday 2030-08-06
 panic!
 ```
 
-```
+```bash
 ./birthday 2000-42-50
 panic!
 ```
 
-```
+```bash
 ./birthday tomorrow
 panic!
 ```
