@@ -8,6 +8,14 @@ class: center, middle
 ---
 class: center, middle
 
+<img src="life.jpg" width="500">
+
+
+<footer style="font-size: 14px">Source: edwardmonkton.com</footer>
+
+---
+class: center, middle
+
 # Why functional programming?
 ## Ease of reasoning
 ---
@@ -262,7 +270,7 @@ fn calc_message(dob_string: Option<String>, today: NaiveDate) -> Message {
         Message::HadBirthday
     } else {
         Message::Wait {
-            days: calc_days_until_birthday(today, birthday) as u32,
+            days: calc_days_until_birthday(today, birthday),
         }
     }
 }
@@ -399,6 +407,14 @@ class: middle
  - Write total functions
  
 ## Write bug-free testable code
+
+---
+class: center, middle
+
+<img src="good_code.png" width="350">
+
+
+<footer style="font-size: 14px">Source: xkcd.com</footer>
 
 ---
 class: middle
