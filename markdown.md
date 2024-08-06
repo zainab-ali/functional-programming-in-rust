@@ -425,6 +425,9 @@ class: middle
  - LinkedIn: [zainab-ali-fp](https://uk.linkedin.com/in/zainab-ali-fp)
  - GitHub: zainab-ali
 
+# Upcoming talks
+ - Reasoning with Async Rust, [RustLab 2024](https://rustlab.it/)
+
 ---
 class: center, middle
 # Thank you!
