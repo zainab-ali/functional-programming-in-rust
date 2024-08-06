@@ -1,74 +1,98 @@
-* What's the point of FP?
-Slide: Why? Understandable code.
+* Slide: Why functional programming?
+Slide content: Understandable code
+
 We want code that's easy to understand.
 There are lots of ways we achieve this:
  - naming things.
  - structuring
  - writing tests
 functional programming is a technique of breaking down our problems to help us reason about the code we write.
-* Agenda
-Slide:
+* Slide: Agenda
+Content:
  - Design a basic app
  - Hunt for a bug
  - Rewrite our app with FP techniques
 
+Our goal is to get an intuition for reasoning with functional programming.
+
+We'll explore these with an example.
+
+* Slide: birthday app
+
+Today is 6th August.
+
+./birthday 2000-08-06 # My birthday is today
+Happy birthday! Congratulations on becoming 24!
+
+./birthday 2000-08-08 # My birthday is in a couple of days
+It's not your birthday yet. Wait for 2 more days.
+
+./birthday 2000-08-05 # My birthday was yesterday
+You've already had your birthday. I hope you had fun!
+
+* Slide: code
+
+code
+
+* Slide: why might we get this bug?
+
+It's around midnight on the 5th August:
+./birthday 2000-08-06
+It's not your birthday yet. Wait for 0 more days.
+
+Let's go back to the code.
+We've assumed this is a constant value, but =today()= could change each time we call it.
+
+* Functional programming techniques
 Slide: Techniques
  - Pure functions
  - Identifying side effects
  - Modelling data
  - Total functions
 
-Our goal is to get an intuition for reasoning with functional programming.
-
-We'll explore these with an example.
-* Example: birthday app
-Slide:
-
-./birthday 2000-08-06
-Happy birthday! Congratulations on becoming 24!
-
-./birthday 2000-08-08
-It's not your birthday yet. Wait for 2 more days.
-
-./birthday 2000-08-05
-You've already had your birthday. I hope you had fun!
-
-Slide:
-code
-
-* Problems
-
-./birthday 2030-08-06
-panic!
-
-./birthday 2000-02-29
-panic!, but not this year
-
-We're going to solve these later.
-
-* Questions: why might we get this bug?
-
-Slide:
-
-./birthday 2000-08-06 # around midnight on the 5th August
-It's not your birthday yet. Wait for 0 more days.
-
-
-Let's go back to the code.
-We've assumed this is a constant value, but =today()= could change each time we call it.
-
 * Pure functions
 Slide:
  - Can be substituted with its result.
  - No other behaviour, aside from returning its output
 
+Examples
+
+let x = 1 + 2;
+# Is equivalent to
+let x = 3;
+
+let is_empty = Some(5).is_empty();
+# Is equivalent to
+let is_empty = false;
+# Is also equivalent to
+let is_empty = match Some(5) {
+ Some(_) => false,
+ None => true
+};
+
+
 Working with pure functions and data (values) is easier purely because they don't change.
 They're also easy to test.
+
+* Slide side effects
+
+let x = println!("Happy birthday!");
+# Is not equivalent to ()
+let x = ();
+
+
+let x = today();
+# Is not equvalent to
+let x = NativeDate::of_ymd(2024,08,06);
+
+let x = sys::env::args();
+# Is not equivalent to
+let x = vec!["birthday", "2024-08-06"];
 
 There are other things that are pure - reading from the environment.
 It's somewhat subjective, but easier to understand if we don't do it.
 
-* Rewriting the code
+* Slide: Rewriting the code
 
 Getting the current day will always be impure, but some of our other functions don't need to be.
 
@@ -78,6 +102,7 @@ There are other values that aren't exactly obvious to reason about. Where is the
 
 It comes from the arguments. We can extract it to a separate function.
 
+* Slide: Pure functions
 We now have a few functions that don't have side effects:
  - age
  - days_until_birthday
@@ -88,12 +113,9 @@ And ones that do
  - today
    
 In rewriting our code in this way, we're already applying some functional programming principles.
+These are much easier to test. We can plonk in the dates we're worried about.
+A pure function is one that will always return the same output given the same input, it will behave the same under test as when running.
 
-We've rewritten age to be a pure function. There are some additional benefits.
- - If under test age(foo, bar) gives 42, it will do so when we run it. No exceptions.
- - We can read through the code, and assume that its the case.
-
-A pure function is one that will always return the same output given the same input.
 The function call can be substituted for its result.
 
 * Splitting out even more side effects
@@ -117,6 +139,7 @@ Modelling data is a big concern in FP. A lot of code boils down to pattern match
   - printing
  Pure code:
   - calc_message
+    
 * The benefits
  - Easy to reason about
    My code is the result of calc_message(myinput, date)
@@ -126,7 +149,8 @@ Modelling data is a big concern in FP. A lot of code boils down to pattern match
  For example, I know that if I call this with X and Y, I should get Z
   It doesn't matter what my implementation is.
   I can write tests to make sure the implementation is correct.
-* Problems
+
+* Slide: More bugs
 
 ./birthday 2030-08-06
 panic!
@@ -136,23 +160,34 @@ panic!, but not this year
 
 ./birthday tomorrow
 panic!
-
- - Totality.
+* Slide: totality
    For all possible combinations of inputs, I should get a valid output.
  - Is that the case? No! For example:
     - If I call this with a birthday less than today.
       If I was born on a leap year, and this year is non-leap.
       If I don't pass in a valid date.
  - Defining pure functions helps us think about these cases and write tests for them.
-    
-* How to handle errors
+Functions that panic are not total, so are not pure.
+
+* Slide: How to handle edge cases
 This depends entirely on your business problem.
  - You may want to panic.
    Or you may want to have special handling.
  We want leap years to be part of our logic.
-* Dealing with errors 
-Future dates are incorrect.
 
- - Equational reasoning
- - Handling errors
- - Algebraic data types
+* Slide: handling leap years
+Let's add another case to our data type and print out something on leap years.
+
+* Slide: Result
+
+We're going to use the Result type. Now our function is total.
+
+We can return a Result from main, and rust will exit with an appropriate code and print the error.
+* Slide: testing
+We can now also write tests for these cases.
+
+* Functional programming
+ - Pure functions
+ - Reasoning through substitution
+ - Using types to describe outputs
+ - Total functions
