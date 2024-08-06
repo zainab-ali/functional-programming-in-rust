@@ -119,8 +119,8 @@ fn today() -> NaiveDate {
 ```
 
 ```rust
-fn birthday(today: NaiveDate) -> NaiveDate {
-    date_of_birth().with_year(today.year()).unwrap()
+fn birthday() -> NaiveDate {
+    date_of_birth().with_year(today().year()).unwrap()
 }
 ```
 
