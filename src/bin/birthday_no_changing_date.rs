@@ -37,8 +37,8 @@ fn get_today() -> NaiveDate {
 fn get_arg() -> Option<String> {
     std::env::args().nth(1)
 }
-fn calc_dob(date_arg: Option<String>) -> NaiveDate {
-    NaiveDate::parse_from_str(&date_arg.unwrap(), "%Y-%m-%d").unwrap()
+fn calc_dob(input: Option<String>) -> NaiveDate {
+    NaiveDate::parse_from_str(&input.unwrap(), "%Y-%m-%d").unwrap()
 }
 fn calc_birthday(today: NaiveDate, dob: NaiveDate) -> NaiveDate {
     dob.with_year(today.year()).unwrap()
