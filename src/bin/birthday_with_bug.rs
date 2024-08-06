@@ -8,17 +8,16 @@ use chrono::{Datelike, NaiveDate, Utc};
 fn main() -> () {
     if birthday() == today() {
         println!("Happy birthday! Congratulations on becoming {}!", age());
+    } else if birthday() < today() {
+        println!("You've already had your birthday. I hope you had fun!")
     } else {
-        if birthday() < today() {
-            println!("You've already had your birthday. I hope you had fun!")
-        } else {
-            println!(
-                "It's not your birthday yet. Wait for {} more days.",
-                days_until_birthday()
-            );
-        }
+        println!(
+            "It's not your birthday yet. Wait for {} more days.",
+            days_until_birthday()
+        );
     }
 }
+
 fn today() -> NaiveDate {
     Utc::now().date_naive()
 }
