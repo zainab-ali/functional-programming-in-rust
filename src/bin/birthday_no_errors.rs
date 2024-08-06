@@ -34,14 +34,14 @@ fn print_message(message: Message) -> () {
     }
 }
 
-fn calc_message(date_string: Option<String>, today: NaiveDate) -> Result<Message, Error> {
-    let date_of_birth = date_of_birth(date_string, today)?;
-    let message = match birthday(today, date_of_birth) {
+fn calc_message(dob_string: Option<String>, today: NaiveDate) -> Result<Message, Error> {
+    let dob = calc_dob(dob_string, today)?;
+    let message = match get_birthday(today, dob) {
         None => NoBirthday,
         Some(birthday) => {
             if birthday == today {
                 Message::HappyBirthday {
-                    age: age(today, date_of_birth),
+                    age: age(today, dob),
                 }
             } else {
                 if birthday < today {
@@ -64,7 +64,7 @@ fn age(today: NaiveDate, date_of_birth: NaiveDate) -> u32 {
     // The dob is after today.
     today.years_since(date_of_birth).unwrap()
 }
-fn date_of_birth(date_string: Option<String>, today: NaiveDate) -> Result<NaiveDate, Error> {
+fn calc_dob(date_string: Option<String>, today: NaiveDate) -> Result<NaiveDate, Error> {
     // There is no argument specified
     match date_string {
         None => Err(Error::NoDateOfBirth),
@@ -79,7 +79,7 @@ fn date_of_birth(date_string: Option<String>, today: NaiveDate) -> Result<NaiveD
             }),
     }
 }
-fn birthday(today: NaiveDate, date_of_birth: NaiveDate) -> Option<NaiveDate> {
+fn get_birthday(today: NaiveDate, date_of_birth: NaiveDate) -> Option<NaiveDate> {
     // This will fail if the user was born on a leap year
     date_of_birth.with_year(today.year())
 }
@@ -91,6 +91,12 @@ fn today() -> NaiveDate {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn born_in_future() {
+        let today = NaiveDate::from_ymd(2025, 01, 01);
+        let result = calc_message(Some("2030-06-15".to_string()), today);
+        assert_eq!(result, Err(Error::BornInTheFuture));
+    }
 
     #[test]
     fn born_on_a_leap_year() {
