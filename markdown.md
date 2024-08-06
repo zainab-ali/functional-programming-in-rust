@@ -23,12 +23,16 @@ class: middle
 # Agenda
  - 🎂 Design a basic app
  - 🐛 Hunt for a bug
- - λ  Rewrite with FP techniques
+ - λ  Rewrite with functional programming techniques
 
 ---
 class: middle
 
 # Birthday app  
+
+```bash
+./birthday <date-of-birth>   # Shortened to "dob"
+```
 
 ## Today is 6th August 2024.
 
