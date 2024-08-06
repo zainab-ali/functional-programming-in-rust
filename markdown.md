@@ -228,7 +228,7 @@ class: middle
     #[test]
     fn test_days_until_birthday() {
         let today = NaiveDate::from_ymd(2024, 08, 05);
-        let birthday = NaiveDate::from_ymd(2024, 08, 26);
+        let birthday = NaiveDate::from_ymd(2024, 08, 06);
         let result = calc_days_until_birthday(today, birthday);
         assert_eq!(result, 1);
     }
