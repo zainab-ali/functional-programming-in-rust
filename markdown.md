@@ -46,6 +46,25 @@ It's not your birthday yet. Wait for 2 more days.
 ./birthday 2000-08-05   # My birthday was yesterday
 You've already had your birthday. I hope you had fun!
 ```
+---
+class: middle
+```rust
+fn main() -> () {
+    if birthday() == today() {
+        println!("Happy birthday! Congratulations on becoming {}!", age());
+    } else {
+        if birthday() < today() {
+            println!("You've already had your birthday. I hope you had fun!")
+        } else {
+            println!(
+                "It's not your birthday yet. Wait for {} more days.",
+                days_until_birthday()
+            );
+        }
+    }
+}
+
+```
 
 ---
 class: middle
