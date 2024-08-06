@@ -9,5 +9,13 @@ edition = "2021"
 chrono = "0.4"
 
 [[bin]]
-name = "birthday"
+name = "birthday1"
 
+[[bin]]
+name = "birthday2"
+
+[[bin]]
+name = "birthday3"
+
+[[bin]]
+name = "birthday4"
