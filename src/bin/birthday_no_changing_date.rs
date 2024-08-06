@@ -1,14 +1,21 @@
 use chrono::{Datelike, NaiveDate, Utc};
 
+// We have separated the side effecting code from the pure code
+// The value assigned to "today" does not change throughout the program.
+//
+// Pure functions are prefixed by "calc_" to make them easier to identify,
+// only for the sake of this tutorial.
+// These functions can be tested easily.
 fn main() -> () {
-    let today = get_today(); // Side effects
-    let dob_string = get_arg();
+    // Side effects
+    let today = get_today();
+    let input = get_arg();
 
-    let dob = calc_dob(dob_string); // Pure
+    // Pure code
+    let dob = calc_dob(input);
     let birthday = calc_birthday(today, dob);
 
     if birthday == today {
-        // Printing
         println!(
             "Happy birthday! Congratulations on becoming {}!",
             calc_age(today, dob)
@@ -43,14 +50,15 @@ fn calc_days_until_birthday(today: NaiveDate, birthday: NaiveDate) -> i64 {
 fn calc_age(today: NaiveDate, dob: NaiveDate) -> u32 {
     today.years_since(dob).unwrap()
 }
+
 #[cfg(test)]
 mod tests {
     use super::*;
     #[test]
-    fn test_days_until_bday() {
+    fn test_days_until_birthday() {
         let today = NaiveDate::from_ymd(2024, 08, 05);
-        let birthday = NaiveDate::from_ymd(2024, 08, 26);
-        let result = calc_days_until_birthday(today, today);
+        let birthday = NaiveDate::from_ymd(2024, 08, 06);
+        let result = calc_days_until_birthday(today, birthday);
         assert_eq!(result, 1);
     }
 }
